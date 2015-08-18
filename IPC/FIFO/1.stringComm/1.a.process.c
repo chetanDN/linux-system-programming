@@ -9,7 +9,7 @@ Author	-	Chetan Naik
 mailId	-	chetandevanaik@gmail.com
 */
 
-#include "../header.h"
+#include "header.h"
 main()
 {
 	char a[50]={};
