@@ -29,17 +29,21 @@ int main(int argc,char **argv)
     }
     
     printf("Server Socket created successfully\n");
+
     memset(&servaddr,0,sizeof(servaddr));
-    servaddr.sin_family =AF_INET;
-    servaddr.sin_addr.s_addr=htons(SERVER_PORT);
+	servaddr.sin_family =AF_INET;
+    servaddr.sin_port        = htons(SERVER_PORT);
+    servaddr.sin_addr.s_addr = htonl(INADDR_ANY);
+ 
+    //servaddr.sin_addr.s_addr=htons(SERVER_PORT);
     
-    if(bind(listenfd,(struct sockaddr*)&servaddr,sizeof(servaddr))!=0)
+    if(bind(listenfd,(struct sockaddr*)&servaddr,sizeof(servaddr)) < 0)
     {
         printf("Error : Server bind to port %d failed \n",SERVER_PORT);
         exit(0);
     }
     printf("Server bound to port %d successfully\n",SERVER_PORT);
-    if(listen(listenfd,LISTENQ)!=0)
+    if(listen(listenfd,LISTENQ)<0)
     {
         printf("ERROR : server is not listening\n");
         exit(0);
@@ -50,16 +54,17 @@ int main(int argc,char **argv)
     for(;;)
     {
         clilen=sizeof(cliaddr);
-        if(connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&clilen)<0)
+        if((connfd = accept(listenfd,(struct sockaddr *)&cliaddr,&clilen))<0)
         {
             printf("Error : Server didnt accept the client request \n");
             exit (0);
         }
         printf("Server accepted the accept() request from client\n");
-        while((n=read(connfd,buff,MAXLINE)))
+        while((n=read(connfd,buff,MAXLINE))<0)
         {
             ts=time(NULL);
             printf("%s client message : %s \n\n",asctime(localtime(&ts)),buff);
+            fflush (stdin);
         }
         if(n==0)
             printf("Error :Client Disconnected\n");
