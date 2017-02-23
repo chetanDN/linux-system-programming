@@ -36,8 +36,40 @@ int main(int argc,char **argv)
         
         if((connect(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr)))!=0)
         {
+            printf("Error :  Server connect failed.\n");
+            exit(0);
+        }
+        printf("client got connected to the server\n");
+        printf("info Type 'exit' to end the session\n");
+        
+        while(1){
+            ts = time(NULL);
+            printf("[%Enter Message] : ",asctime(localtime(&ts)));
+            scanf("%s",sendline);
+            printf("...%s",sendline);
+            
+            if(sendline == "exit")
+                break;
+                
+            if((n=write(sockfd,sendline,sizeof(sendline)))<0)
+            {
+                printf("Error : Client message sending to serverf failed\n");
+                return 1;
+            }
+            printf("Info : Client Message asent to server successfully\n");
+            
+            if((n=read(sockfd,recvline,sizeof(recvline)))<0)
+            {
+                printf("Error : server reply messsage didnt received\n");
+                break;
+            }
+            
+            ts=time(NULL);
+            printf("[%s Server Message] : %s\n\n",asctime(localtime(&ts)),recvline);
             
         }
+        close(sockfd);
+        printf("client terminated the server session\n");
     }
     
     
