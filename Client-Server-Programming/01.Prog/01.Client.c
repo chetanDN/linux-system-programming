@@ -18,7 +18,7 @@ int main(int argc,char **argv)
     
     int sockfd,n;
     struct sockaddr_in servaddr;
-    char sendline[MAXLINE],recvLine[MAXLINE];
+    char sendline[MAXLINE],recvline[MAXLINE];
     time_t ts;
     
     if(argc != 2)
@@ -27,11 +27,11 @@ int main(int argc,char **argv)
         exit(0);
     }
     
-    if((sockfd=socket(AF_INET,sock_stream,0))<0)
+    if((sockfd=socket(AF_INET,SOCK_STREAM,0))<0)
     {
         printf("socket creation successful");
         memset(&servaddr,0,sizeof(servaddr));
-        servaddr.sin_family = AD_INET;
+        servaddr.sin_family = AF_INET;
         servaddr.sin_port = htons(SERVER_PORT);
         
         if((connect(sockfd,(struct sockaddr *)&servaddr,sizeof(servaddr)))!=0)
