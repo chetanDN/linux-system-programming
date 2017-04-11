@@ -13,3 +13,13 @@ struct hostent{
     char **h_addr_list;     //list of addresses of host in n/w byte order 
 };
 #define h_addr h_addr_list[0] //holds the first IP address of host from h_addr_list of Ip addresses
+
+//client can get ip address as
+struct hostent *hptr;
+char *exampleHostName = "rvce.edu.in";
+
+if (hptr=gethostbyname(exampleHostName)){
+    printf("host ip  = %s",hptr->h_addr)    /* Ip address in hptr->h_addr*/
+}else{
+    printf("error")
+}
