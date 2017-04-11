@@ -15,11 +15,19 @@ struct hostent{
 #define h_addr h_addr_list[0] //holds the first IP address of host from h_addr_list of Ip addresses
 
 //client can get ip address as
-struct hostent *hptr;
-char *exampleHostName = "rvce.edu.in";
-
-if (hptr=gethostbyname(exampleHostName)){
-    printf("host ip  = %s",hptr->h_addr)    /* Ip address in hptr->h_addr*/
-}else{
-    printf("error")
+int main()
+{
+    
+    
+    //client can get ip address as
+    struct hostent *hptr;
+    char *exampleHostName = "www.google.com";
+    
+    if (hptr=gethostbyname(exampleHostName)){
+        printf("host ip  = %s",hptr->h_addr);    // Ip address in hptr->h_addr
+    }else{
+        printf("error");
+    }
+    
+    return 0;
 }
