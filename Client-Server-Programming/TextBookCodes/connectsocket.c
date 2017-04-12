@@ -42,4 +42,24 @@ int connectsock(const char *host,const char *service,const char *transport){
 		memcpy(&sin.sin_addr,phe->h_addr,phe->h_length);
 	else if ( (sin.sin_addr= inet_addr(host)) == INADDR_NONE )
 		errexit("cant get \" %s \" host entry\n",service);
+	
+	//map TRANSPORT PROTOCOL NAME TO number
+	if ( (ppe = getprotobyname(transport)) == 0)
+		errexit("cant get \" %s \" protocol entry\n",transport);
+	
+	//to choose a socket type make use of protocol 
+	if (strcmp( transport,"udp") == 0)
+		type = SOCK_DGRAM;
+	else
+		type = SOCK_STREAM;
+	
+	//last final allocata a sockets
+	s = socket(PF_INET,type,ppe->p_proto);
+	if ( S<0)
+		errexit("cannot create socket: %s\n",strerror(errno) );	//error in stdlib.h
+	
+	//connect the socket
+	if (connect (s, (struct sockaddr *)&sin,sizeof(sin)) <0)
+		errexit("cant connect to %s.%s: %s\n",host,service,strerror(errno));
+	return s; //return socket fd
 }
