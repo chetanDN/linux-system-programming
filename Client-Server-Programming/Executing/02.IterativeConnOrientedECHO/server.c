@@ -1,3 +1,13 @@
+/*
+Design, develop, and execute a program in C under UNIX / LINUX environment to implement a simple iterative connection-oriented server and demonstrate its functioning. 
+
+Iterative server 
+–	process one request at a time
+–	Easy to build
+–	Unnecessary delay
+
+*/
+
 #include <stdio.h>	/* for fprintf */
 #include <string.h>	/* for memcpy */
 #include <stdlib.h> //exit(1)
