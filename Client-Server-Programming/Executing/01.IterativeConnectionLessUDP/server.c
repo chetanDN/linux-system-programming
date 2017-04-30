@@ -1,3 +1,13 @@
+/*
+Design, develop, and execute a program in C under UNIX / LINUX environment to implement a
+simple iterative connectionless server and demonstrate its functioning. 
+
+Iterative server 
+–	process one request at a time
+–	Easy to build
+–	Unnecessary delay
+
+*/
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <stdio.h>	/* for fprintf */
