@@ -1,3 +1,23 @@
+/*
+Design, develop, and execute a program in C under UNIX / LINUX environment to implement a simple concurrent connection-oriented server and demonstrate its functioning. 
+
+Concurrent server handles multiple requests at one time.
+–	More difficult to design and build
+–	Better performance
+
+Concurrency is achieved using fork call:
+
+#include<unistd.h>
+  int fork();
+Return 0 in child, process ID of child in parent –1 on error
+
+There are two typical uses of fork
+–	A process makes a copy of itself so that one copy handle one operation while the other copy does another task.
+–	A process wants to execute another program. Since the only way to create a new process is by calling fork, the process first calls fork to make a copy of itself, and then one of the copies(child) calls exec to replace itself with the new program
+
+
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <sys/types.h>
